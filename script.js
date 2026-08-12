@@ -1,62 +1,207 @@
-// ===============================
-// EDIT THESE SETTINGS
-// ===============================
+// ========================================
+// LIFESTEALZ SMP WEBSITE SETTINGS
+// ========================================
+
 const CONFIG = {
-  // Minecraft server address shown on the page
+
+  // Minecraft server IP
   serverIp: "lifestealzsmp.falix.pro",
 
-  // Server status API. mcstatus.io is free for basic public status checks.
-  // Example: https://api.mcstatus.io/v2/status/java/play.example.net
-  statusApi: "https://api.mcstatus.io/v2/status/java/lifestealzsmp.falix.pro",
+  // Minecraft Java server status API
+  statusApi:
+    "https://api.mcstatus.io/v2/status/java/lifestealzsmp.falix.pro",
 
-  // Replace with your real store URL
-  storeUrl: "https://lifestealzsmp0.craftingstore.net/",
+  // CraftingStore
+  storeUrl:
+    "https://lifestealzsmp0.craftingstore.net/",
 
-  // Replace with your real Discord invite
-  discordUrl: "https://discord.gg/fT3yHx7kg"
+  // Discord
+  discordUrl:
+    "https://discord.gg/fT3yHx7kg"
+
 };
 
-document.getElementById("serverIp").textContent = CONFIG.serverIp;
 
-document.querySelectorAll('a[href*="YOUR-STORE-LINK"]').forEach(a => a.href = CONFIG.storeUrl);
-document.querySelectorAll('a[href*="YOURINVITE"]').forEach(a => a.href = CONFIG.discordUrl);
+// ========================================
+// DISPLAY SERVER IP
+// ========================================
 
-document.getElementById("copyIp").addEventListener("click", async () => {
-  try {
-    await navigator.clipboard.writeText(CONFIG.serverIp);
-    const msg = document.getElementById("copyMessage");
-    msg.textContent = "✓ IP address copied!";
-    setTimeout(() => msg.textContent = "", 2000);
-  } catch {
-    alert("Copy failed. Server IP: " + CONFIG.serverIp);
-  }
-});
+document.getElementById("serverIp").textContent =
+  CONFIG.serverIp;
+
+
+// ========================================
+// DISCORD LINKS
+// ========================================
+
+document
+  .querySelectorAll('a[href*="discord.gg"]')
+  .forEach(link => {
+
+    link.href = CONFIG.discordUrl;
+
+  });
+
+
+// ========================================
+// STORE LINKS
+// ========================================
+
+document
+  .querySelectorAll('a[href="#store"]')
+  .forEach(link => {
+
+    link.addEventListener("click", () => {
+
+      setTimeout(() => {
+
+        const store =
+          document.getElementById("store");
+
+        if (store) {
+          store.scrollIntoView({
+            behavior: "smooth"
+          });
+        }
+
+      }, 50);
+
+    });
+
+  });
+
+
+// ========================================
+// COPY SERVER IP
+// ========================================
+
+document
+  .getElementById("copyIp")
+  .addEventListener("click", async () => {
+
+    try {
+
+      await navigator.clipboard.writeText(
+        CONFIG.serverIp
+      );
+
+      const message =
+        document.getElementById("copyMessage");
+
+      message.textContent =
+        "✓ IP adresa bola skopírovaná!";
+
+      setTimeout(() => {
+
+        message.textContent = "";
+
+      }, 2000);
+
+    } catch {
+
+      alert(
+        "Nepodarilo sa skopírovať IP.\n\n" +
+        CONFIG.serverIp
+      );
+
+    }
+
+  });
+
+
+// ========================================
+// SERVER STATUS
+// ========================================
 
 async function updateServerStatus() {
-  const status = document.getElementById("serverStatus");
-  const players = document.getElementById("playerCount");
-  const dot = document.getElementById("statusDot");
+
+  const status =
+    document.getElementById("serverStatus");
+
+  const players =
+    document.getElementById("playerCount");
+
+  const dot =
+    document.getElementById("statusDot");
+
 
   try {
-    const response = await fetch(CONFIG.statusApi, { cache: "no-store" });
-    if (!response.ok) throw new Error("API error");
-    const data = await response.json();
+
+    const response =
+      await fetch(
+        CONFIG.statusApi,
+        {
+          cache: "no-store"
+        }
+      );
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        "API error"
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
 
     if (data.online) {
-      dot.className = "status-dot online";
-      status.textContent = "ONLINE";
-      players.textContent = data.players?.online ?? 0;
+
+      dot.className =
+        "status-dot online";
+
+      status.textContent =
+        "ONLINE";
+
+      players.textContent =
+        data.players?.online ?? 0;
+
     } else {
-      dot.className = "status-dot offline";
-      status.textContent = "OFFLINE";
-      players.textContent = "0";
+
+      dot.className =
+        "status-dot offline";
+
+      status.textContent =
+        "OFFLINE";
+
+      players.textContent =
+        "0";
+
     }
+
+
   } catch {
-    dot.className = "status-dot offline";
-    status.textContent = "STATUS UNAVAILABLE";
-    players.textContent = "—";
+
+    dot.className =
+      "status-dot offline";
+
+    status.textContent =
+      "STATUS UNAVAILABLE";
+
+    players.textContent =
+      "—";
+
   }
+
 }
 
+
+// ========================================
+// INITIAL STATUS CHECK
+// ========================================
+
 updateServerStatus();
-setInterval(updateServerStatus, 30000);
+
+
+// ========================================
+// UPDATE EVERY 30 SECONDS
+// ========================================
+
+setInterval(
+  updateServerStatus,
+  30000
+);
