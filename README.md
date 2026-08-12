@@ -1,27 +1,72 @@
-# Minecraft Server Status Page
+# LifeStealZ SMP Website
 
-A simple free HTML/CSS/JS website for a Minecraft server.
+Official website for the LifeStealZ SMP Minecraft server.
 
-## Quick setup
+## Server
 
-1. Open `script.js`.
-2. Change:
-   - `serverIp`
-   - `statusApi`
-   - `storeUrl`
-   - `discordUrl`
-3. Edit `index.html` to change the server name, staff, VIP ranks, rules and vote links.
-4. Upload all three files (`index.html`, `style.css`, `script.js`) to GitHub.
-5. Enable GitHub Pages in the repository settings.
+IP:
 
-## Status API
+lifestealzsmp.falix.pro
 
-The default example uses mcstatus.io:
+## Discord
 
-`https://api.mcstatus.io/v2/status/java/YOUR_SERVER_IP`
+https://discord.gg/fT3yHx7kg
 
-Replace `YOUR_SERVER_IP` with your actual Java server address.
+## Store
 
-## Important
+https://lifestealzsmp0.craftingstore.net/
 
-This is a static website. It does not process payments itself. The Store button should link to your existing Minecraft store.
+## Files
+
+- index.html
+- style.css
+- script.js
+
+## GitHub Pages
+
+1. Create a GitHub repository.
+2. Upload all files to the repository.
+3. Open Settings.
+4. Open Pages.
+5. Select:
+
+Deploy from a branch
+
+6. Select:
+
+main
+
+7. Select:
+
+/ (root)
+
+8. Press Save.
+
+GitHub will create your website.
+
+## Server Status
+
+The website uses the mcstatus.io API to display:
+
+- Online / Offline status
+- Current player count
+
+The API address is configured in script.js.
+
+## Editing
+
+Most server settings can be changed in:
+
+script.js
+
+Change:
+
+serverIp
+
+storeUrl
+
+discordUrl
+
+The staff, VIP ranks, rules and vote links are located in:
+
+index.html
